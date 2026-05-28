@@ -1,5 +1,5 @@
-import { colorMap2 } from "../Constants/Colors";
 import type { BoardState, CellValue } from "../Types/GameTypes";
+import BigCell from "./BigCell";
 import Square from "./Square";
 
 export default function Board(props: {
@@ -16,8 +16,6 @@ export default function Board(props: {
 		props.boardState.slice(3, 6),
 		props.boardState.slice(6, 9),
 	];
-
-	const cssVariables = colorMap2[props.bigCellValue];
 
 	return (
 		<>
@@ -36,7 +34,7 @@ export default function Board(props: {
 						);
 					})
 				)}
-				<div className="bigCell" style={cssVariables}>{props.bigCellValue}</div>
+				<BigCell value={props.bigCellValue} />
 			</div>
 		</>
 	);
