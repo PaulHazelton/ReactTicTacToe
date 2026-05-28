@@ -107,3 +107,16 @@
 		outline-offset: 2px;
 	}
 }
+
+.bigCell {
+	position: absolute;
+	width: calc((100% - 2 * var(--boardGap)) / 3);
+	height: calc((100% - 2 * var(--boardGap)) / 3);
+	font-size: 14rem;
+	line-height: 0;
+	align-content: center;
+
+	color: var(--cellColor);
+	background-color: var(--cellBgColor);
+	opacity: 0.6;
+}

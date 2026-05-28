@@ -29,12 +29,15 @@ export default function Game() {
 					const boardIndex = r*3+c;
 
 					return (
-						<Board
-							key={boardIndex}
-							index={boardIndex}
-							boardState={rows[r][c]}
-							setCell={(cellIndex) => setCell(boardIndex, cellIndex)}
-						/>
+						<>
+							<Board
+								key={boardIndex}
+								index={boardIndex}
+								boardState={rows[r][c]}
+								bigCellValue="O"
+								setCell={(cellIndex) => setCell(boardIndex, cellIndex)}
+							/>
+						</>
 					)
 				}))}
 			</div>
