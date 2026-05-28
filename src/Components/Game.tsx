@@ -18,14 +18,14 @@ export default function Game() {
 	return (
 		<>
 			<div className="game">
-				{rows.map((row, r) => row.map((_, c) => {
+				{rows.map((row, r) => row.map((boardState, c) => {
 
 					const boardIndex = r * 3 + c;
 
 					return (
 						<Board
 							key={boardIndex}
-							boardState={rows[r][c]}
+							boardState={boardState}
 							bigCellValue={gameState[9][boardIndex]}
 							setCell={(cellIndex) => setCell(boardIndex, cellIndex)}
 						/>
