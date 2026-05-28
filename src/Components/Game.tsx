@@ -37,22 +37,22 @@ export default function Game() {
 		</>
 	);
 
-	function setCell(board: number, cell: number) {
+	function setCell(selectedBoard: number, selectedCell: number) {
 
 		// Can only play in empty cells.
-		if (gameState[board][cell] != " ")
+		if (gameState[selectedBoard][selectedCell] != " ")
 			return;
 
 		// Can only play in the active board, unless no board is active.
-		if (activeBoardIndex != null && board != activeBoardIndex)
+		if (activeBoardIndex != null && selectedBoard != activeBoardIndex)
 			return;
 
 		let newGameState = gameState.map((boardData, boardIndex) => {
 			
-			if (boardIndex == board) {
+			if (boardIndex == selectedBoard) {
 				
 				const newBoard = [...boardData] as BoardState;
-				newBoard[cell] = turn;
+				newBoard[selectedCell] = turn;
 	
 				return newBoard;
 			}
@@ -64,7 +64,7 @@ export default function Game() {
 
 		setGameState(newGameState);
 		setTurn(turn == "O" ? "X" : "O");
-		setActiveBoardIndex(cell);
+		setActiveBoardIndex(newGameState[9][selectedCell] == " " ? selectedCell : null);
 	}
 
 	function generateBigBoard(gameState: BoardState[]) : BoardState {
