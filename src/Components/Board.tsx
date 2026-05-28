@@ -3,13 +3,10 @@ import BigCell from "./BigCell";
 import Square from "./Square";
 
 export default function Board(props: {
-	index: number,
 	boardState: BoardState,
 	bigCellValue: CellValue,
 	setCell: (cell: number) => void }
 ) {
-
-	// const boardState = " ".repeat(9);
 
 	const rows = [
 		props.boardState.slice(0, 3),
@@ -20,8 +17,7 @@ export default function Board(props: {
 	return (
 		<>
 			<div className="board">
-				{rows.map((row, r) =>
-					[...row].map((value, c) => {
+				{rows.map((row, r) => row.map((value, c) => {
 
 						const cellIndex = r * 3 + c;
 

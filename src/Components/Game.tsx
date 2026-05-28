@@ -20,18 +20,15 @@ export default function Game() {
 			<div className="game">
 				{rows.map((row, r) => row.map((_, c) => {
 
-					const boardIndex = r*3+c;
+					const boardIndex = r * 3 + c;
 
 					return (
-						<>
-							<Board
-								key={boardIndex}
-								index={boardIndex}
-								boardState={rows[r][c]}
-								bigCellValue={gameState[9][boardIndex]}
-								setCell={(cellIndex) => setCell(boardIndex, cellIndex)}
-							/>
-						</>
+						<Board
+							key={boardIndex}
+							boardState={rows[r][c]}
+							bigCellValue={gameState[9][boardIndex]}
+							setCell={(cellIndex) => setCell(boardIndex, cellIndex)}
+						/>
 					)
 				}))}
 			</div>
