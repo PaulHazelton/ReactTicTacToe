@@ -7,6 +7,7 @@ export default function Game() {
 	const blankBoard = new Array<BoardState>(10).fill(createBoard());
 
 	const [gameState, setGameState] = React.useState<BoardState[]>(blankBoard);
+	const [activeBoardIndex, setActiveBoardIndex] = React.useState<number | null>(null);
 	const [turn, setTurn] = React.useState<"X" | "O">("X");
 
 	const rows = [
@@ -27,6 +28,7 @@ export default function Game() {
 							key={boardIndex}
 							boardState={boardState}
 							bigCellValue={gameState[9][boardIndex]}
+							active={activeBoardIndex == boardIndex}
 							setCell={(cellIndex) => setCell(boardIndex, cellIndex)}
 						/>
 					)
@@ -36,6 +38,14 @@ export default function Game() {
 	);
 
 	function setCell(board: number, cell: number) {
+
+		// Can only play in empty cells.
+		if (gameState[board][cell] != " ")
+			return;
+
+		// Can only play in the active board, unless no board is active.
+		if (activeBoardIndex != null && board != activeBoardIndex)
+			return;
 
 		let newGameState = gameState.map((boardData, boardIndex) => {
 			
@@ -54,6 +64,7 @@ export default function Game() {
 
 		setGameState(newGameState);
 		setTurn(turn == "O" ? "X" : "O");
+		setActiveBoardIndex(cell);
 	}
 
 	function generateBigBoard(gameState: BoardState[]) : BoardState {

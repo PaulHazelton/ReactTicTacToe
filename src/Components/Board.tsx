@@ -5,6 +5,7 @@ import Square from "./Square";
 export default function Board(props: {
 	boardState: BoardState,
 	bigCellValue: CellValue,
+	active: boolean,
 	setCell: (cell: number) => void }
 ) {
 
@@ -16,7 +17,7 @@ export default function Board(props: {
 
 	return (
 		<>
-			<div className="board">
+			<div className={`board ${props.active ? "active" : ""}`}>
 				{rows.map((row, r) => row.map((value, c) => {
 
 						const cellIndex = r * 3 + c;
@@ -24,7 +25,7 @@ export default function Board(props: {
 						return (
 							<Square
 								key={cellIndex}
-								value={value as CellValue}
+								value={value}
 								setCell={() => {props.setCell(cellIndex)}}
 							/>
 						);
