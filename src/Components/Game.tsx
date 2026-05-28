@@ -64,7 +64,15 @@ export default function Game() {
 
 		setGameState(newGameState);
 		setTurn(turn == "O" ? "X" : "O");
-		setActiveBoardIndex(newGameState[9][selectedCell] == " " ? selectedCell : null);
+		setActiveBoardIndex(isBoardPlayable(newGameState[selectedCell]) ? selectedCell : null);
+	}
+
+	function isBoardPlayable(boardState: BoardState): boolean {
+
+		if (boardState.every(value => value != " "))
+			return false;
+
+		return getWinner(boardState) == " ";
 	}
 
 	function generateBigBoard(gameState: BoardState[]) : BoardState {
