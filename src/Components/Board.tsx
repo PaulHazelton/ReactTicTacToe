@@ -1,6 +1,11 @@
+import type { BoardState, CellValue } from "../Types/GameTypes";
 import Square from "./Square";
 
-export default function Board(props: { boardState: string }) {
+export default function Board(props: {
+	index: number,
+	boardState: BoardState,
+	setCell: (cell: number) => void }
+) {
 
 	// const boardState = " ".repeat(9);
 
@@ -12,12 +17,16 @@ export default function Board(props: { boardState: string }) {
 
 	return (
 		<div className="board">
-			{rows.map((row, rowIndex) =>
-				[...row].map((value, colIndex) => {
+			{rows.map((row, r) =>
+				[...row].map((value, c) => {
+
+					const cellIndex = r * 3 + c;
+
 					return (
 						<Square
-							key={rowIndex * 3 + colIndex}
-							value={value}
+							key={cellIndex}
+							value={value as CellValue}
+							setCell={() => {props.setCell(cellIndex)}}
 						/>
 					);
 				})
