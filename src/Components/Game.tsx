@@ -1,19 +1,19 @@
 import React from "react";
 import Board from "./Board";
-import { createBoard, type BoardState, type CellValue } from "../Types/GameTypes";
+import { createBoard, type BoardState, type CellValue, type GameState } from "../Types/GameTypes";
 
 export default function Game() {
 
-	const blankBoard = new Array<BoardState>(10).fill(createBoard());
+	const blankBoards = new Array<BoardState>(9).fill(createBoard());
+	const initialGameState: GameState = {ActiveBoard: null, SmallBoards: blankBoards, BigBoard: createBoard(), Turn: "X" };
 
-	const [gameState, setGameState] = React.useState<BoardState[]>(blankBoard);
-	const [activeBoardIndex, setActiveBoardIndex] = React.useState<number | null>(null);
-	const [turn, setTurn] = React.useState<"X" | "O">("X");
+	const [history, setHistory] = React.useState<GameState[]>([]);
+	const [gameState, setGameState] = React.useState<GameState>(initialGameState);
 
 	const rows = [
-		gameState.slice(0, 3),
-		gameState.slice(3, 6),
-		gameState.slice(6, 9),
+		gameState.SmallBoards.slice(0, 3),
+		gameState.SmallBoards.slice(3, 6),
+		gameState.SmallBoards.slice(6, 9),
 	];
 
 	return (
@@ -27,32 +27,38 @@ export default function Game() {
 						<Board
 							key={boardIndex}
 							boardState={boardState}
-							bigCellValue={gameState[9][boardIndex]}
-							active={activeBoardIndex == boardIndex}
+							bigCellValue={gameState.BigBoard[boardIndex]}
+							active={gameState.ActiveBoard == boardIndex}
 							setCell={(cellIndex) => setCell(boardIndex, cellIndex)}
 						/>
 					)
 				}))}
 			</div>
+			<button onClick={undo}>Undo</button>
 		</>
 	);
 
 	function setCell(selectedBoard: number, selectedCell: number) {
 
 		// Can only play in empty cells.
-		if (gameState[selectedBoard][selectedCell] != " ")
+		if (gameState.SmallBoards[selectedBoard][selectedCell] != " ")
 			return;
 
 		// Can only play in the active board, unless no board is active.
-		if (activeBoardIndex != null && selectedBoard != activeBoardIndex)
+		if (gameState.ActiveBoard != null && gameState.ActiveBoard != selectedBoard)
 			return;
 
-		let newGameState = gameState.map((boardData, boardIndex) => {
+		// Update History
+		history.push(gameState)
+		setHistory(history);
+
+		// Generate next state
+		const newSmallBoards = gameState.SmallBoards.map((boardData, boardIndex) => {
 			
 			if (boardIndex == selectedBoard) {
 				
 				const newBoard = [...boardData] as BoardState;
-				newBoard[selectedCell] = turn;
+				newBoard[selectedCell] = gameState.Turn;
 	
 				return newBoard;
 			}
@@ -60,11 +66,24 @@ export default function Game() {
 				return boardData;
 		});
 
-		newGameState[9] = generateBigBoard(newGameState);
+		const newBigBoard = generateBigBoard(newSmallBoards);
 
-		setGameState(newGameState);
-		setTurn(turn == "O" ? "X" : "O");
-		setActiveBoardIndex(isBoardPlayable(newGameState[selectedCell]) ? selectedCell : null);
+		const activeBoardIndex = (isBoardPlayable(newSmallBoards[selectedCell]) ? selectedCell : null);
+
+		const turn: "X" | "O" = (gameState.Turn == "O" ? "X" : "O");
+
+		setGameState({ ActiveBoard: activeBoardIndex, BigBoard: newBigBoard, SmallBoards: newSmallBoards, Turn: turn });
+	}
+
+	function undo() {
+
+		const previousState = history.pop();
+
+		if (!previousState)
+			return;
+
+		setGameState(previousState);
+		setHistory(history);
 	}
 
 	function isBoardPlayable(boardState: BoardState): boolean {
