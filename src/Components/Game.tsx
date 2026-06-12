@@ -17,7 +17,7 @@ export default function Game() {
 	];
 
 	return (
-		<>
+		<div id="center">
 			<div className="game">
 				{rows.map((row, r) => row.map((boardState, c) => {
 
@@ -35,7 +35,7 @@ export default function Game() {
 				}))}
 			</div>
 			<button onClick={undo}>Undo</button>
-		</>
+		</div>
 	);
 
 	function setCell(selectedBoard: number, selectedCell: number) {

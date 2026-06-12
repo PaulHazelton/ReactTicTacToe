@@ -1,18 +1,16 @@
-// import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "./assets/vite.svg";
-// import heroImg from "./assets/hero.png";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Game from "./Components/Game";
+import Index from "./Components/Index";
 
 function App() {
 	return (
-		<div id="center">
-			<Game />
-			{/* <section id="center">
-
-			</section> */}
-		</div>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Index />}></Route>
+				<Route path="/game" element={<Game />}></Route>
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
