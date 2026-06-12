@@ -14,8 +14,7 @@
 	transition: all ease-in-out 100ms;
 }
 
-.card:hover,
-.card:focus {
+.card:hover {
 	transition: all ease-in-out 100ms;
 	-webkit-box-shadow: 0px 0px 10px 4px var(--card-color);
 	box-shadow: 0px 0px 10px 4px var(--card-color);
