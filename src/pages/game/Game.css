@@ -121,7 +121,7 @@
 	left: -2%;
 	width: 104%;
 	height: 104%;
-	border: 2px solid cyan;
+	border: 2px solid var(--cellColor);
 	z-index: -1;
 }
 

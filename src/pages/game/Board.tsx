@@ -1,3 +1,4 @@
+import { colorMap } from "../../constants/Colors";
 import { cellIsPlayable, type BoardState, type CellValue, type GameState } from "../../types/GameTypes";
 import BigCell from "./BigCell";
 import Square from "./Square";
@@ -17,9 +18,11 @@ export default function Board(props: {
 		props.boardState.slice(6, 9),
 	];
 
+	const cssVariables = colorMap[props.gameState.Turn];
+
 	return (
 		<>
-			<div className={`board ${props.active ? "active" : ""}`}>
+			<div className={`board ${props.active ? "active" : ""}`} style={cssVariables}>
 				{rows.map((row, r) => row.map((value, c) => {
 
 						const cellIndex = r * 3 + c;
