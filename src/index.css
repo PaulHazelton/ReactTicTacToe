@@ -108,12 +108,11 @@ p {
 	border-style: solid;
 	border-radius: 8px;
 
-	align-self: center;
-	width: 100%;
-
 	color: var(--accent);
 	background-color: var(--accent-bg);
 	border-color: var(--accent);
+
+	text-decoration: none;
 
 	transition: all 100ms ease-out;
 }
@@ -127,11 +126,14 @@ p {
 
 .header {
 	text-align: center;
-	height: 4rem;
 }
 .header h1 {
 	margin: 0;
 	line-height: 4rem;
+}
+.header .btn {
+	float: left;
+	margin: 0.75rem;
 }
 
 #center {

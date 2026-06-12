@@ -63,6 +63,8 @@
 .control-panel .btn {
 	width: 8rem;
 	height: 3rem;
+
+	align-self: center;
 }
 
 /* Side by side mode */

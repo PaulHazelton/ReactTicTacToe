@@ -8,6 +8,8 @@ import {
 	type GameState,
 } from "../../types/GameTypes";
 import { colorMap } from "../../constants/Colors";
+import { Link } from "react-router-dom";
+import { AppRoutes } from "../../constants/AppRoutes";
 
 export default function Game() {
 	const blankBoards = new Array<BoardState>(9).fill(createBoard());
@@ -34,6 +36,7 @@ export default function Game() {
 	return (
 		<>
 			<div className="header">
+				<Link className="btn" to={AppRoutes.Home}>&lt;-Back</Link>
 				<h1>Ultimate Tic Tac Toe</h1>
 			</div>
 			<div className="game-control-box">
