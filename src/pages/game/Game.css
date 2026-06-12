@@ -144,16 +144,15 @@
 	background-color: var(--cellBgColor);
 	border: 2px solid transparent;
 
-	transition: border-color 0.3s;
+	transition: border-color 0.2s;
+}
 
-	&:hover {
-		border-color: #40d0f0;
-	}
-
-	&:focus-visible {
-		outline: 2px solid #40d0f0;
-		outline-offset: 2px;
-	}
+.square:not(:disabled):hover {
+	border-color: #40d0f0;
+}
+.square:not(:disabled):focus-visible {
+	outline: 2px solid #40d0f0;
+	outline-offset: 2px;
 }
 
 .bigCell {

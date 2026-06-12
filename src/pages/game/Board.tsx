@@ -1,8 +1,10 @@
-import type { BoardState, CellValue } from "../types/GameTypes";
+import { cellIsPlayable, type BoardState, type CellValue, type GameState } from "../../types/GameTypes";
 import BigCell from "./BigCell";
 import Square from "./Square";
 
 export default function Board(props: {
+	gameState: GameState,
+	boardIndex: number,
 	boardState: BoardState,
 	bigCellValue: CellValue,
 	active: boolean,
@@ -26,6 +28,7 @@ export default function Board(props: {
 							<Square
 								key={cellIndex}
 								value={value}
+								playable={cellIsPlayable(props.gameState, props.boardIndex, cellIndex)}
 								setCell={() => {props.setCell(cellIndex)}}
 							/>
 						);

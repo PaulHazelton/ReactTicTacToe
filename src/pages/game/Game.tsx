@@ -3,8 +3,10 @@ import React from "react";
 import Board from "./Board";
 import {
 	type BoardState,
+	cellIsPlayable,
 	type CellValue,
 	createBoard,
+	createGameState,
 	type GameState,
 } from "../../types/GameTypes";
 import { colorMap } from "../../constants/Colors";
@@ -12,18 +14,10 @@ import { Link } from "react-router-dom";
 import { AppRoutes } from "../../constants/AppRoutes";
 
 export default function Game() {
-	const blankBoards = new Array<BoardState>(9).fill(createBoard());
-	const initialGameState: GameState = {
-		ActiveBoard: null,
-		SmallBoards: blankBoards,
-		BigBoard: createBoard(),
-		Turn: "X",
-	};
+	const initialGameState = createGameState();
 
 	const [history, setHistory] = React.useState<GameState[]>([]);
-	const [gameState, setGameState] = React.useState<GameState>(
-		initialGameState,
-	);
+	const [gameState, setGameState] = React.useState<GameState>(initialGameState);
 
 	const rows = [
 		gameState.SmallBoards.slice(0, 3),
@@ -55,6 +49,8 @@ export default function Game() {
 							return (
 								<Board
 									key={boardIndex}
+									gameState={gameState}
+									boardIndex={boardIndex}
 									boardState={boardState}
 									bigCellValue={gameState
 										.BigBoard[boardIndex]}
@@ -71,18 +67,9 @@ export default function Game() {
 	);
 
 	function setCell(selectedBoard: number, selectedCell: number) {
-		// Can only play in empty cells.
-		if (gameState.SmallBoards[selectedBoard][selectedCell] != " ") {
-			return;
-		}
 
-		// Can only play in the active board, unless no board is active.
-		if (
-			gameState.ActiveBoard != null &&
-			gameState.ActiveBoard != selectedBoard
-		) {
+		if (!cellIsPlayable(gameState, selectedBoard, selectedCell))
 			return;
-		}
 
 		// Update History
 		history.push(gameState);
