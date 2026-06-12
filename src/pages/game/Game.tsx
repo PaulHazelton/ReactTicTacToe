@@ -41,7 +41,7 @@ export default function Game() {
 					</div>
 					<button className="btn" onClick={undo}>Undo</button>
 				</div>
-				<div className="game">
+				<div className={`game ${gameState.ActiveBoard == null ? "active" : ""}`} style={turnIndicatorCss}>
 					{rows.map((row, r) =>
 						row.map((boardState, c) => {
 							const boardIndex = r * 3 + c;

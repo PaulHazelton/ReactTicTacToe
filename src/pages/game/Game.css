@@ -99,6 +99,18 @@
 	aspect-ratio: 1;
 }
 
+.game.active::before {
+	content: "";
+	position: absolute;
+	top: -4px;
+	left: -4px;
+	bottom: -4px;
+	right: -4px;
+	border: 2px solid var(--cellColor);
+	border-radius: 4px;
+	z-index: -1;
+}
+
 .board {
 
 	position: relative;
@@ -117,11 +129,12 @@
 .board.active::before {
 	content: "";
 	position: absolute;
-	top: -2%;
-	left: -2%;
-	width: 104%;
-	height: 104%;
+	top: -4px;
+	left: -4px;
+	bottom: -4px;
+	right: -4px;
 	border: 2px solid var(--cellColor);
+	border-radius: 4px;
 	z-index: -1;
 }
 
@@ -145,6 +158,8 @@
 	border: 2px solid transparent;
 
 	transition: border-color 0.2s;
+
+	user-select: none;
 }
 
 .square:not(:disabled):hover {
@@ -168,4 +183,6 @@
 	color: var(--cellColor);
 	background-color: var(--cellBgColor);
 	opacity: 0.6;
+	
+	user-select: none;
 }
