@@ -1,3 +1,4 @@
+import "./Game.css";
 import React from "react";
 import Board from "./Board";
 import { createBoard, type BoardState, type CellValue, type GameState } from "../../types/GameTypes";
