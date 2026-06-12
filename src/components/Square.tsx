@@ -1,5 +1,5 @@
-import type { CellValue } from "../Types/GameTypes";
-import { colorMap } from "../Constants/Colors";
+import type { CellValue } from "../types/GameTypes";
+import { colorMap } from "../constants/Colors";
 
 export default function Square(props: {
 	value: CellValue;

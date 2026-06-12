@@ -1,4 +1,4 @@
-import type { BoardState, CellValue } from "../Types/GameTypes";
+import type { BoardState, CellValue } from "../types/GameTypes";
 import BigCell from "./BigCell";
 import Square from "./Square";
 
