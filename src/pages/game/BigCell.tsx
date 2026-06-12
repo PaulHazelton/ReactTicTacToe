@@ -1,5 +1,5 @@
-import { colorMap2 } from "../constants/Colors";
-import type { CellValue } from "../types/GameTypes";
+import { colorMap2 } from "../../constants/Colors";
+import type { CellValue } from "../../types/GameTypes";
 
 export default function BigCell(props: { value: CellValue }) {
 

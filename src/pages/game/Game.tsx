@@ -1,5 +1,5 @@
 import React from "react";
-import Board from "../../components/Board"
+import Board from "./Board";
 import { createBoard, type BoardState, type CellValue, type GameState } from "../../types/GameTypes";
 
 export default function Game() {
