@@ -1,13 +1,18 @@
 .game-control-box {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	align-items: center;
 
-	width: 100%;
-	max-width: 800px;
+	/* width: 100%; */
+	/* max-width: 800px; */
+	height: calc(100dvh - 6rem);
+
+	padding: 0 1rem;
+
 	margin: 0 auto;
-	gap: 2rem;
+	margin-bottom: 2rem;
+	gap: 1rem;
 }
 
 .control-panel {
@@ -60,8 +65,28 @@
 }
 
 .control-panel .btn {
-	max-width: 6rem;
+	width: 8rem;
 	height: 3rem;
+}
+
+/* Side by side mode */
+@media ((width > 900px)) {
+	.game {
+		height: 100%;
+	}
+	.game-control-box {
+		flex-direction: row;
+	}
+	.control-panel {
+		flex-direction: column;
+	}
+}
+
+/* On top mode */
+@media not ((width > 900px)) {
+	.game {
+		width: calc(min(100dvh - 12rem, 90dvw));
+	}
 }
 
 .game {
@@ -73,10 +98,6 @@
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: var(--boardGap);
 
-	--board-width: calc(min(100dvh - 12rem, 90dvw));
-
-	width: var(--board-width);
-	/* width: 600px; */
 	aspect-ratio: 1;
 }
 
