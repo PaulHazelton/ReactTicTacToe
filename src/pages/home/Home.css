@@ -1,0 +1,14 @@
+.home h2 {
+	text-align: center;
+}
+
+.zone {
+	margin-bottom: 3rem;
+}
+
+.card-box {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 2rem;
+}
