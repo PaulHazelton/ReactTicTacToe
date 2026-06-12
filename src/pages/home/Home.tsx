@@ -1,4 +1,5 @@
 import Card from "../../components/Card";
+import { AppRoutes } from "../../constants/AppRoutes";
 import "./Home.css";
 
 export default function Home() {
@@ -25,7 +26,7 @@ export default function Home() {
 				<div className="zone">
 					<h2>Pass and Play Game</h2>
 					<div className="card-box">
-						<Card header="Duel" color="cyan">
+						<Card header="Duel" color="cyan" route={AppRoutes.PassAndPlay}>
 							<p>You and a friend on this device.</p>
 						</Card>
 					</div>

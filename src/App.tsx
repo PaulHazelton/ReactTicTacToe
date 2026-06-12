@@ -1,13 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Game from "./pages/game/Game";
 import Home from "./pages/home/Home";
+import { AppRoutes } from "./constants/AppRoutes";
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<Home />}></Route>
-				<Route path="/game" element={<Game />}></Route>
+				<Route path={AppRoutes.Home} element={<Home />}></Route>
+				<Route path={AppRoutes.PassAndPlay} element={<Game />}></Route>
 			</Routes>
 		</BrowserRouter>
 	);

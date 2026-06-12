@@ -13,6 +13,7 @@
 	width: 100%;
 	max-width: 800px;
 	aspect-ratio: 1;
+	margin: auto;
 
 	/* outline: 1px solid red; */
 }
@@ -93,6 +94,7 @@
 	font-size: 14rem;
 	line-height: 0;
 	align-content: center;
+	text-align: center;
 
 	color: var(--cellColor);
 	background-color: var(--cellBgColor);
