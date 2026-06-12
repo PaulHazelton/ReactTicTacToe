@@ -1,15 +1,11 @@
 .game-control-box {
 	display: flex;
 	flex-direction: column;
-	/* justify-content: space-between; */
 	align-items: center;
 
-	/* width: 100%; */
-	/* max-width: 800px; */
 	height: calc(100dvh - 6rem);
 
 	padding: 0 1rem;
-
 	margin: 0 auto;
 	margin-bottom: 2rem;
 	gap: 1rem;
