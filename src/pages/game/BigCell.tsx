@@ -8,7 +8,7 @@ export default function BigCell(props: { value: CellValue }) {
 	switch (props.value) {
 		case "X":
 		case "O":
-			return <div className="bigCell" style={cssVariables}>{props.value}</div>
+			return <div className="bigCell" style={cssVariables}><span>{props.value}</span></div>
 		default:
 			return <></>
 	}

@@ -17,7 +17,7 @@ export default function Square(props: {
 				disabled={!props.playable}
 				onClick={props.setCell}
 			>
-				{props.value}
+				<span>{props.value}</span>
 			</button>
 		</>
 	);

@@ -139,7 +139,9 @@
 }
 
 .square {
-	font-size: 4rem;
+	/* font-size: 4rem; */
+	container-type: inline-size;
+	
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 
 	width: 100%;
@@ -161,6 +163,10 @@
 	transition: border-color 0.2s;
 }
 
+.square span {
+	font-size: 100cqi;
+}
+
 .square:not(:disabled):hover {
 	border-width: 2px;
 	border-style: solid;
@@ -180,15 +186,21 @@
 }
 
 .bigCell {
+	container-type: inline-size;
+
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background-color: red;
 	font-size: 14rem;
 	line-height: 0;
 	align-content: center;
 	text-align: center;
 	overflow: hidden;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 
 	color: var(--cellColor);
 	background-color: var(--cellBgColor);
@@ -196,4 +208,8 @@
 	
 	user-select: none;
 	pointer-events: none;
+}
+
+.bigCell span {
+	font-size: 100cqi;
 }
