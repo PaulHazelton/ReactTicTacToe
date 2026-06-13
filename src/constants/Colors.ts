@@ -27,3 +27,18 @@ export const colorMap2 = {
 		"--cellBgColor": "#3b3a34",
 	} as React.CSSProperties
 };
+
+export const colorMap3 = {
+	" ": {
+		"--turnColor": "white",
+		"--turnBgColor": "#21202a"
+	} as React.CSSProperties,
+	"X": {
+		"--turnColor": "#c084fc",
+		"--turnBgColor": "#332b43",
+	} as React.CSSProperties,
+	"O": {
+		"--turnColor": "#fcec84",
+		"--turnBgColor": "#3b3a34",
+	} as React.CSSProperties
+};

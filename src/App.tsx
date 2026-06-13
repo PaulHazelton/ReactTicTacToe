@@ -1,18 +1,16 @@
-// import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "./assets/vite.svg";
-// import heroImg from "./assets/hero.png";
-import "./App.css";
-import Game from "./Components/Game";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Game from "./pages/game/Game";
+import Home from "./pages/home/Home";
+import { AppRoutes } from "./constants/AppRoutes";
 
 function App() {
 	return (
-		<div id="center">
-			<Game />
-			{/* <section id="center">
-
-			</section> */}
-		</div>
+		<BrowserRouter>
+			<Routes>
+				<Route path={AppRoutes.Home} element={<Home />}></Route>
+				<Route path={AppRoutes.PassAndPlay} element={<Game />}></Route>
+			</Routes>
+		</BrowserRouter>
 	);
 }
 
