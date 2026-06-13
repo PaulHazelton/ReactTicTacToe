@@ -3,6 +3,7 @@ import React from "react";
 import Board from "./Board";
 import {
 	type BoardState,
+	calcGameStatus,
 	cellIsPlayable,
 	type CellValue,
 	createBoard,
@@ -12,6 +13,7 @@ import {
 import { colorMap3 } from "../../constants/Colors";
 import { Link } from "react-router-dom";
 import { AppRoutes } from "../../constants/AppRoutes";
+import EndScreen from "./EndScreen";
 
 export default function Game() {
 	const initialGameState = createGameState();
@@ -61,6 +63,7 @@ export default function Game() {
 							);
 						})
 					)}
+					<EndScreen status={gameState.Status} />
 				</div>
 			</div>
 		</>
@@ -103,6 +106,7 @@ export default function Game() {
 			SmallBoards: newSmallBoards,
 			Turn: turn,
 			LastMove: [selectedBoard, selectedCell],
+			Status: calcGameStatus(newSmallBoards, newBigBoard),
 		});
 	}
 

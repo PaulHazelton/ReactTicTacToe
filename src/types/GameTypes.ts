@@ -1,4 +1,5 @@
 export type CellValue = "X" | "O" | " ";
+export type GameStatus = "not over" | "X" | "O" | "draw";
 
 export type BoardState = [
 	CellValue, CellValue, CellValue,
@@ -16,6 +17,7 @@ export interface GameState {
 	ActiveBoard: number | null;
 	Turn: "X" | "O";
 	LastMove: [number, number] | null;
+	Status: GameStatus;
 }
 
 export function createGameState(): GameState {
@@ -25,6 +27,7 @@ export function createGameState(): GameState {
 		BigBoard: createBoard(),
 		Turn: "X",
 		LastMove: null,
+		Status: "not over"
 	};
 }
 
@@ -43,4 +46,49 @@ export function cellIsPlayable(gameState: GameState, selectedBoard: number, sele
 	}
 
 	return true;
+}
+
+export function calcGameStatus(smallBoards: BoardState[], bigBoard: BoardState): GameStatus {
+	// Win: Just check big board
+	const bigBoardResult = getWinner(bigBoard);
+
+	if (bigBoardResult != " ")
+		return bigBoardResult;
+
+	// If no win, check if there is any move to make. If so, not over.
+	for (let boardIndex = 0; boardIndex < 9; boardIndex++) {
+		if (bigBoard[boardIndex] == " ") {
+			for (let cellIndex = 0; cellIndex < 9; cellIndex++) {
+				if (smallBoards[boardIndex][cellIndex] == " ")
+					return "not over";
+			}
+		}
+	}
+
+	// Otherwise, not over.
+	return "draw";
+}
+
+export function getWinner(boardState: BoardState): CellValue {
+	const WINNING_LINES = [
+		[0, 1, 2],
+		[3, 4, 5],
+		[6, 7, 8], // rows
+		[0, 3, 6],
+		[1, 4, 7],
+		[2, 5, 8], // columns
+		[0, 4, 8],
+		[2, 4, 6], // diagonals
+	];
+
+	for (const [a, b, c] of WINNING_LINES) {
+		const cell = boardState[a];
+		if (
+			cell !== " " && cell === boardState[b] && cell === boardState[c]
+		) {
+			return cell;
+		}
+	}
+
+	return " ";
 }

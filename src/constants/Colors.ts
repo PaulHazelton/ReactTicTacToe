@@ -42,3 +42,18 @@ export const colorMap3 = {
 		"--turnBgColor": "#3b3a34",
 	} as React.CSSProperties
 };
+
+export const colorMap4 = {
+	"draw": {
+		"--winColor": "white",
+		"--winBgColor": "#21202a"
+	} as React.CSSProperties,
+	"X": {
+		"--winColor": "#c084fc",
+		"--winBgColor": "#332b43",
+	} as React.CSSProperties,
+	"O": {
+		"--winColor": "#fcec84",
+		"--winBgColor": "#3b3a34",
+	} as React.CSSProperties
+};
