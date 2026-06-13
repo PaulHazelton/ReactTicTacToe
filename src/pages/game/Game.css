@@ -134,12 +134,11 @@
 	bottom: -4px;
 	right: -4px;
 	border: 2px solid var(--turnColor);
-	border-radius: 4px;
+	border-radius: 8px;
 	z-index: -1;
 }
 
 .square {
-	/* font-size: 4rem; */
 	container-type: inline-size;
 	
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;

@@ -28,6 +28,10 @@
 	}
 }
 
+* {
+	box-sizing: border-box;
+}
+
 @media (prefers-color-scheme: dark) {
 	:root {
 		--text: #cacdd2;
