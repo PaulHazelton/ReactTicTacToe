@@ -15,6 +15,7 @@ export interface GameState {
 	BigBoard: BoardState;
 	ActiveBoard: number | null;
 	Turn: "X" | "O";
+	LastMove: [number, number] | null;
 }
 
 export function createGameState(): GameState {
@@ -23,6 +24,7 @@ export function createGameState(): GameState {
 		SmallBoards: new Array<BoardState>(9).fill(createBoard()),
 		BigBoard: createBoard(),
 		Turn: "X",
+		LastMove: null,
 	};
 }
 

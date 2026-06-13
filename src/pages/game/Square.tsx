@@ -4,6 +4,7 @@ import { colorMap } from "../../constants/Colors";
 export default function Square(props: {
 	value: CellValue;
 	playable: boolean,
+	lastMove: boolean,
 	setCell: () => void;
 }) {
 	const cssVariables = colorMap[props.value];
@@ -11,7 +12,7 @@ export default function Square(props: {
 	return (
 		<>
 			<button
-				className="square"
+				className={`square ${props.lastMove ? "previous" : ""}`}
 				style={cssVariables}
 				disabled={!props.playable}
 				onClick={props.setCell}

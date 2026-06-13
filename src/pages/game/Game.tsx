@@ -9,7 +9,7 @@ import {
 	createGameState,
 	type GameState,
 } from "../../types/GameTypes";
-import { colorMap } from "../../constants/Colors";
+import { colorMap3 } from "../../constants/Colors";
 import { Link } from "react-router-dom";
 import { AppRoutes } from "../../constants/AppRoutes";
 
@@ -25,7 +25,7 @@ export default function Game() {
 		gameState.SmallBoards.slice(6, 9),
 	];
 
-	const turnIndicatorCss = colorMap[gameState.Turn];
+	const turnIndicatorCss = colorMap3[gameState.Turn];
 
 	return (
 		<>
@@ -102,6 +102,7 @@ export default function Game() {
 			BigBoard: newBigBoard,
 			SmallBoards: newSmallBoards,
 			Turn: turn,
+			LastMove: [selectedBoard, selectedCell],
 		});
 	}
 

@@ -32,6 +32,7 @@ export default function Board(props: {
 								key={cellIndex}
 								value={value}
 								playable={cellIsPlayable(props.gameState, props.boardIndex, cellIndex)}
+								lastMove={lastMoveCell(props.gameState.LastMove, props.boardIndex, cellIndex)}
 								setCell={() => {props.setCell(cellIndex)}}
 							/>
 						);
@@ -41,4 +42,12 @@ export default function Board(props: {
 			</div>
 		</>
 	);
+
+	function lastMoveCell(lastMove: [number, number] | null, boardIndex: number, cellIndex: number): boolean {
+		if (lastMove == null)
+			return false;
+
+		const [bi, ci] = lastMove;
+		return (bi == boardIndex) && (ci == cellIndex);
+	}
 }
