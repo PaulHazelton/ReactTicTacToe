@@ -35,6 +35,11 @@ export default function Game() {
 				<Link className="btn" to={AppRoutes.Home}>&lt;-Back</Link>
 				<h1>Ultimate Tic Tac Toe</h1>
 			</div>
+			<div className="subheader">
+				<h2>Pass & Play</h2>
+			</div>
+			{/* <div className="subheader">
+			</div> */}
 			<div className="game-control-box">
 				<div className="control-panel">
 					<div className="turn-indicator" style={turnIndicatorCss}>
