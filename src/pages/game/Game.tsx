@@ -14,6 +14,7 @@ import { colorMap3 } from "../../constants/Colors";
 import { Link } from "react-router-dom";
 import { AppRoutes } from "../../constants/AppRoutes";
 import EndScreen from "./EndScreen";
+import { ArrowLeft, Undo2 } from "lucide-react";
 
 export default function Game() {
 	const initialGameState = createGameState();
@@ -32,21 +33,19 @@ export default function Game() {
 	return (
 		<>
 			<div className="header">
-				<Link className="btn" to={AppRoutes.Home}>&lt;-Back</Link>
+				<Link className="btn" to={AppRoutes.Home}><ArrowLeft />Back</Link>
 				<h1>Ultimate Tic Tac Toe</h1>
 			</div>
 			<div className="subheader">
 				<h2>Pass & Play</h2>
 			</div>
-			{/* <div className="subheader">
-			</div> */}
 			<div className="game-control-box">
 				<div className="control-panel">
 					<div className="turn-indicator" style={turnIndicatorCss}>
 						<h3>Turn</h3>
 						<div>{gameState.Turn}</div>
 					</div>
-					<button className="btn" onClick={undo}>Undo</button>
+					<button className="btn" onClick={undo}><Undo2 />Undo</button>
 				</div>
 				<div className={`game ${gameState.ActiveBoard == null ? "active" : ""}`} style={turnIndicatorCss}>
 					{rows.map((row, r) =>

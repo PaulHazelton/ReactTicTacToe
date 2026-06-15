@@ -106,6 +106,10 @@ p {
 .btn {
 	font-size: 1rem;
 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	padding: 0.5rem;
 
 	border-width: 2px;

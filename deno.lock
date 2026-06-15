@@ -10,6 +10,7 @@
     "npm:eslint-plugin-react-refresh@~0.5.2": "0.5.2_eslint@10.4.0",
     "npm:eslint@^10.3.0": "10.4.0",
     "npm:globals@^17.6.0": "17.6.0",
+    "npm:lucide-react@^1.18.0": "1.18.0_react@19.2.6",
     "npm:react-dom@^19.2.6": "19.2.6_react@19.2.6",
     "npm:react-router-dom@^7.17.0": "7.17.0_react@19.2.6_react-dom@19.2.6__react@19.2.6",
     "npm:react@^19.2.6": "19.2.6",
@@ -872,6 +873,12 @@
         "yallist"
       ]
     },
+    "lucide-react@1.18.0_react@19.2.6": {
+      "integrity": "sha512-LZDb7H/0YfM+RJncD0hDQRCAu+vSGODqpe35TuVI8EuXaRjkczbsx7p8dY4J87F/MUSj6bpYqeI8nw8qXaAdmA==",
+      "dependencies": [
+        "react"
+      ]
+    },
     "minimatch@10.2.5": {
       "integrity": "sha512-MULkVLfKGYDFYejP07QOurDLLQpcjk7Fw+7jXS2R2czRQzR56yHRveU5NDJEOviH+hETZKSkIk5c+T23GjFUMg==",
       "dependencies": [
@@ -1132,6 +1139,7 @@
         "npm:eslint-plugin-react-refresh@~0.5.2",
         "npm:eslint@^10.3.0",
         "npm:globals@^17.6.0",
+        "npm:lucide-react@^1.18.0",
         "npm:react-dom@^19.2.6",
         "npm:react-router-dom@^7.17.0",
         "npm:react@^19.2.6",
