@@ -10,12 +10,8 @@ import { calcGameStatus, cellIsPlayable, createGameState, type GameState } from 
 import { type BoardState, generateBigBoard, isBoardPlayable } from "../../types/BoardState.ts";
 
 export default function Game() {
-	const initialGameState = createGameState();
-
 	const [history, setHistory] = React.useState<GameState[]>([]);
-	const [gameState, setGameState] = React.useState<GameState>(
-		initialGameState,
-	);
+	const [gameState, setGameState] = React.useState<GameState>(createGameState);
 
 	const turnIndicatorCss = colorMap3[gameState.Turn];
 
@@ -102,9 +98,8 @@ export default function Game() {
 	}
 
 	function undo() {
-		if (history.length == 0) {
+		if (history.length == 0)
 			return;
-		}
 
 		setGameState(history[history.length - 1]);
 		setHistory(history.slice(0, -1));
