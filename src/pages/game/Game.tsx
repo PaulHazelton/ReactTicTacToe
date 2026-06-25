@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 import { AppRoutes } from "../../constants/AppRoutes.ts";
 import EndScreen from "./EndScreen.tsx";
 import { ArrowLeft, Undo2 } from "lucide-react";
-import { calcGameStatus, cellIsPlayable, createGameState, type GameState } from "../../types/GameState.ts";
-import { type BoardState, generateBigBoard, isBoardPlayable } from "../../types/BoardState.ts";
+import * as GameState from "../../types/GameState.ts";
+import * as BoardState from "../../types/BoardState.ts";
 
 export default function Game() {
-	const [history, setHistory] = React.useState<GameState[]>([]);
-	const [gameState, setGameState] = React.useState<GameState>(createGameState);
+	const [history, setHistory] = React.useState<GameState.GameState[]>([]);
+	const [gameState, setGameState] = React.useState<GameState.GameState>(GameState.createGameState);
 
 	const turnIndicatorCss = colorMap3[gameState.Turn];
 
@@ -59,7 +59,7 @@ export default function Game() {
 	);
 
 	function setCell(selectedBoard: number, selectedCell: number) {
-		if (!cellIsPlayable(gameState, selectedBoard, selectedCell)) {
+		if (!GameState.cellIsPlayable(gameState, selectedBoard, selectedCell)) {
 			return;
 		}
 
@@ -71,7 +71,7 @@ export default function Game() {
 		const newSmallBoards = gameState.SmallBoards.map(
 			(boardData, boardIndex) => {
 				if (boardIndex == selectedBoard) {
-					const newBoard = [...boardData] as BoardState;
+					const newBoard = [...boardData] as BoardState.BoardState;
 					newBoard[selectedCell] = gameState.Turn;
 
 					return newBoard;
@@ -81,9 +81,9 @@ export default function Game() {
 			},
 		);
 
-		const newBigBoard = generateBigBoard(newSmallBoards);
+		const newBigBoard = BoardState.generateBigBoard(newSmallBoards);
 
-		const activeBoardIndex = isBoardPlayable(newSmallBoards[selectedCell]) ? selectedCell : null;
+		const activeBoardIndex = BoardState.isBoardPlayable(newSmallBoards[selectedCell]) ? selectedCell : null;
 
 		const turn: "X" | "O" = gameState.Turn == "O" ? "X" : "O";
 
@@ -93,7 +93,7 @@ export default function Game() {
 			SmallBoards: newSmallBoards,
 			Turn: turn,
 			LastMove: [selectedBoard, selectedCell],
-			Status: calcGameStatus(newSmallBoards, newBigBoard),
+			Status: GameState.calcGameStatus(newSmallBoards, newBigBoard),
 		});
 	}
 
