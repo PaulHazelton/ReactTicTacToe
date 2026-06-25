@@ -15,6 +15,8 @@ export default function Game(props: { mode: GameMode }) {
 
 	const turnIndicatorCss = colorMap3[gameState.Turn];
 
+	const aiThinkMode: boolean = gameState.Turn == "O";
+
 	function attempTurn(selectedBoard: number, selectedCell: number) {
 		if (!GameState.cellIsPlayable(gameState, selectedBoard, selectedCell))
 			return;
@@ -53,6 +55,7 @@ export default function Game(props: { mode: GameMode }) {
 						<h3>Turn</h3>
 						<div>{gameState.Turn}</div>
 					</div>
+					{aiThinkMode && <div>Thinking...</div>}
 					<button type="button" className="btn" onClick={undo}>
 						<Undo2 />Undo
 					</button>

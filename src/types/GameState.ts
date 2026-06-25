@@ -61,18 +61,15 @@ export function calcGameStatus(smallBoards: BoardState.BoardState[], bigBoard: B
 
 export function setCell(gameState: GameState, selectedBoard: number, selectedCell: number): GameState {
 	// Generate next state
-	const newSmallBoards = gameState.SmallBoards.map(
-		(boardData, boardIndex) => {
-			if (boardIndex == selectedBoard) {
-				const newBoard = [...boardData] as BoardState.BoardState;
-				newBoard[selectedCell] = gameState.Turn;
+	const newSmallBoards = gameState.SmallBoards.map((boardData, boardIndex) => {
+		if (boardIndex == selectedBoard) {
+			const newBoard = [...boardData] as BoardState.BoardState;
+			newBoard[selectedCell] = gameState.Turn;
 
-				return newBoard;
-			} else {
-				return boardData;
-			}
-		},
-	);
+			return newBoard;
+		} else
+			return boardData;
+	});
 
 	const newBigBoard = BoardState.generateBigBoard(newSmallBoards);
 
