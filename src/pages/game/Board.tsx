@@ -20,9 +20,8 @@ export default function Board(props: {
 		boardIndex: number,
 		cellIndex: number,
 	): boolean {
-		if (lastMove == null) {
+		if (lastMove == null)
 			return false;
-		}
 
 		const [bi, ci] = lastMove;
 		return (bi == boardIndex) && (ci == cellIndex);

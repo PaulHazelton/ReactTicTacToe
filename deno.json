@@ -5,6 +5,7 @@
 		"indentWidth": 4,
 		"semiColons": true,
 		"singleQuote": false,
-		"useBraces": "maintain"
+		"useBraces": "maintain",
+		"singleBodyPosition": "maintain"
 	}
 }

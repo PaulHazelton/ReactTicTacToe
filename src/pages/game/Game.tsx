@@ -7,8 +7,9 @@ import { AppRoutes } from "../../constants/AppRoutes.ts";
 import EndScreen from "./EndScreen.tsx";
 import { ArrowLeft, Undo2 } from "lucide-react";
 import * as GameState from "../../types/GameState.ts";
+import type { GameMode } from "../../types/GameTypes.ts";
 
-export default function Game() {
+export default function Game(props: { mode: GameMode }) {
 	const [history, setHistory] = React.useState<GameState.GameState[]>([]);
 	const [gameState, setGameState] = React.useState<GameState.GameState>(GameState.createGameState);
 
@@ -44,7 +45,7 @@ export default function Game() {
 				<h1>Ultimate Tic Tac Toe</h1>
 			</div>
 			<div className="subheader">
-				<h2>Pass & Play</h2>
+				<h2>{props.mode}</h2>
 			</div>
 			<div className="game-control-box">
 				<div className="control-panel">
