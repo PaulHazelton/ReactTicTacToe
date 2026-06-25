@@ -1,9 +1,9 @@
-import { createBoard, getWinner, type BoardState } from "./BoardState.ts";
+import * as BoardState from "./BoardState.ts";
 import type { GameStatus } from "./GameTypes.ts";
 
 export interface GameState {
-	SmallBoards: BoardState[];
-	BigBoard: BoardState;
+	SmallBoards: BoardState.BoardState[];
+	BigBoard: BoardState.BoardState;
 	ActiveBoard: number | null;
 	Turn: "X" | "O";
 	LastMove: [number, number] | null;
@@ -13,8 +13,8 @@ export interface GameState {
 export function createGameState(): GameState {
 	return {
 		ActiveBoard: null,
-		SmallBoards: new Array<BoardState>(9).fill(createBoard()),
-		BigBoard: createBoard(),
+		SmallBoards: new Array<BoardState.BoardState>(9).fill(BoardState.createBoard()),
+		BigBoard: BoardState.createBoard(),
 		Turn: "X",
 		LastMove: null,
 		Status: "not over"
@@ -38,9 +38,9 @@ export function cellIsPlayable(gameState: GameState, selectedBoard: number, sele
 	return true;
 }
 
-export function calcGameStatus(smallBoards: BoardState[], bigBoard: BoardState): GameStatus {
+export function calcGameStatus(smallBoards: BoardState.BoardState[], bigBoard: BoardState.BoardState): GameStatus {
 	// Win: Just check big board
-	const bigBoardResult = getWinner(bigBoard);
+	const bigBoardResult = BoardState.getWinner(bigBoard);
 
 	if (bigBoardResult != " ")
 		return bigBoardResult;
@@ -57,4 +57,35 @@ export function calcGameStatus(smallBoards: BoardState[], bigBoard: BoardState):
 
 	// Otherwise, not over.
 	return "draw";
+}
+
+export function setCell(gameState: GameState, selectedBoard: number, selectedCell: number): GameState {
+	// Generate next state
+	const newSmallBoards = gameState.SmallBoards.map(
+		(boardData, boardIndex) => {
+			if (boardIndex == selectedBoard) {
+				const newBoard = [...boardData] as BoardState.BoardState;
+				newBoard[selectedCell] = gameState.Turn;
+
+				return newBoard;
+			} else {
+				return boardData;
+			}
+		},
+	);
+
+	const newBigBoard = BoardState.generateBigBoard(newSmallBoards);
+
+	const activeBoardIndex = BoardState.isBoardPlayable(newSmallBoards[selectedCell]) ? selectedCell : null;
+
+	const turn: "X" | "O" = gameState.Turn == "O" ? "X" : "O";
+
+	return ({
+		ActiveBoard: activeBoardIndex,
+		BigBoard: newBigBoard,
+		SmallBoards: newSmallBoards,
+		Turn: turn,
+		LastMove: [selectedBoard, selectedCell],
+		Status: calcGameStatus(newSmallBoards, newBigBoard),
+	});
 }

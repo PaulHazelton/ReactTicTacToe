@@ -5,7 +5,7 @@ export default function Square(props: {
 	value: CellValue;
 	playable: boolean;
 	wasPreviousMove: boolean;
-	setCell: () => void;
+	onCellClick: () => void;
 }) {
 	const cssVariables = colorMap[props.value];
 
@@ -16,7 +16,7 @@ export default function Square(props: {
 				className={`square ${props.wasPreviousMove ? "previous" : ""}`}
 				style={cssVariables}
 				disabled={!props.playable}
-				onClick={props.setCell}
+				onClick={props.onCellClick}
 			>
 				<span>{props.value}</span>
 			</button>

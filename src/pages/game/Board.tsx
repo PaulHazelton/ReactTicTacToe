@@ -11,9 +11,22 @@ export default function Board(props: {
 	boardState: BoardState;
 	bigCellValue: CellValue;
 	active: boolean;
-	setCell: (cell: number) => void;
+	onCellClick: (cell: number) => void;
 }) {
 	const cssVariables = colorMap[props.gameState.Turn];
+
+	function cellWasPreviousMove(
+		lastMove: [number, number] | null,
+		boardIndex: number,
+		cellIndex: number,
+	): boolean {
+		if (lastMove == null) {
+			return false;
+		}
+
+		const [bi, ci] = lastMove;
+		return (bi == boardIndex) && (ci == cellIndex);
+	}
 
 	return (
 		<>
@@ -35,26 +48,11 @@ export default function Board(props: {
 							props.boardIndex,
 							cellIndex,
 						)}
-						setCell={() => {
-							props.setCell(cellIndex);
-						}}
+						onCellClick={() => props.onCellClick(cellIndex)}
 					/>
 				))}
 				<BigCell value={props.bigCellValue} />
 			</div>
 		</>
 	);
-
-	function cellWasPreviousMove(
-		lastMove: [number, number] | null,
-		boardIndex: number,
-		cellIndex: number,
-	): boolean {
-		if (lastMove == null) {
-			return false;
-		}
-
-		const [bi, ci] = lastMove;
-		return (bi == boardIndex) && (ci == cellIndex);
-	}
 }
