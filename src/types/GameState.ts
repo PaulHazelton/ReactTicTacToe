@@ -1,12 +1,12 @@
 import * as BoardState from "./BoardState.ts";
-import type { GameStatus } from "./GameTypes.ts";
+import type { GameStatus, Index } from "./GameTypes.ts";
 
 export interface GameState {
 	SmallBoards: BoardState.BoardState[];
 	BigBoard: BoardState.BoardState;
-	ActiveBoard: number | null;
+	ActiveBoard: Index | null;
 	Turn: "X" | "O";
-	LastMove: [number, number] | null;
+	LastMove: [Index, Index] | null;
 	Status: GameStatus;
 }
 
@@ -59,7 +59,7 @@ export function calcGameStatus(smallBoards: BoardState.BoardState[], bigBoard: B
 	return "draw";
 }
 
-export function setCell(gameState: GameState, selectedBoard: number, selectedCell: number): GameState {
+export function setCell(gameState: GameState, selectedBoard: Index, selectedCell: Index): GameState {
 	// Generate next state
 	const newSmallBoards = gameState.SmallBoards.map((boardData, boardIndex) => {
 		if (boardIndex == selectedBoard) {
@@ -85,4 +85,35 @@ export function setCell(gameState: GameState, selectedBoard: number, selectedCel
 		LastMove: [selectedBoard, selectedCell],
 		Status: calcGameStatus(newSmallBoards, newBigBoard),
 	});
+}
+
+export function easyAiTurn(gameState: GameState): [Index, Index] | null {
+	// Now collect all possible turns, return random one
+	const possibleMoves: [Index, Index][] = [];
+
+	if (gameState.ActiveBoard == null) {
+		for (const [boardIndex, board] of gameState.SmallBoards.entries()) {
+			if (gameState.BigBoard[boardIndex] != " ")
+				continue;
+
+			for (const [cellIndex, cell] of board.entries()) {
+				if (cell == " ")
+					possibleMoves.push([boardIndex as Index, cellIndex as Index]);
+			}
+		}
+	} else {
+		for (const [cellIndex, cell] of gameState.SmallBoards[gameState.ActiveBoard].entries()) {
+			if (cell == " ")
+				possibleMoves.push([gameState.ActiveBoard, cellIndex as Index]);
+		}
+	}
+
+	if (possibleMoves.length == 0)
+		return null;
+
+	return possibleMoves[getRandomInt(possibleMoves.length)];
+}
+
+function getRandomInt(max: number): number {
+	return Math.floor(Math.random() * max);
 }

@@ -7,7 +7,7 @@ import { AppRoutes } from "../../constants/AppRoutes.ts";
 import EndScreen from "./EndScreen.tsx";
 import { ArrowLeft, Undo2 } from "lucide-react";
 import * as GameState from "../../types/GameState.ts";
-import type { GameMode } from "../../types/GameTypes.ts";
+import type { GameMode, Index } from "../../types/GameTypes.ts";
 
 export default function Game(props: { mode: GameMode }) {
 	const [history, setHistory] = React.useState<GameState.GameState[]>([]);
@@ -15,9 +15,32 @@ export default function Game(props: { mode: GameMode }) {
 
 	const turnIndicatorCss = colorMap3[gameState.Turn];
 
-	const aiThinkMode: boolean = gameState.Turn == "O";
+	const aiTurn: boolean = props.mode == "Easy AI" && gameState.Status == "not over" && gameState.Turn == "O";
 
-	function attempTurn(selectedBoard: number, selectedCell: number) {
+	// AI SLOP WARNNIG -------
+	// 1. Add the useEffect hook for the AI's delay
+	React.useEffect(() => {
+		// Only run the timer if it's the AI's turn
+		if (aiTurn) {
+			const timerId = setTimeout(() => {
+				// Assume this is your existing helper function
+				const turn: [Index, Index] | null = GameState.easyAiTurn(gameState);
+
+				if (turn == null)
+					throw new Error("AI failed to select a turn");
+
+				attempTurn(turn[0], turn[1]);
+			}, 1000); // 1000ms = 1 second delay
+
+			// 2. CRITICAL: Cleanup function
+			// This clears the timeout if the component unmounts or if the state
+			// changes before the timer finishes, preventing memory leaks and bugs.
+			return () => clearTimeout(timerId);
+		}
+	}, [aiTurn, gameState]); // Re-run effect when turn or state changes
+	// -------------
+
+	function attempTurn(selectedBoard: Index, selectedCell: Index) {
 		if (!GameState.cellIsPlayable(gameState, selectedBoard, selectedCell))
 			return;
 
@@ -55,7 +78,7 @@ export default function Game(props: { mode: GameMode }) {
 						<h3>Turn</h3>
 						<div>{gameState.Turn}</div>
 					</div>
-					{aiThinkMode && <div>Thinking...</div>}
+					{aiTurn && <div>Thinking...</div>}
 					<button type="button" className="btn" onClick={undo}>
 						<Undo2 />Undo
 					</button>
@@ -73,7 +96,7 @@ export default function Game(props: { mode: GameMode }) {
 							bigCellValue={gameState
 								.BigBoard[boardIndex]}
 							active={gameState.ActiveBoard == boardIndex}
-							onCellClick={(cellIndex) => attempTurn(boardIndex, cellIndex)}
+							onCellClick={(cellIndex) => attempTurn(boardIndex as Index, cellIndex)}
 						/>
 					))}
 					<EndScreen status={gameState.Status} />

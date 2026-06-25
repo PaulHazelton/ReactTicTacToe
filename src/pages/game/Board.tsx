@@ -1,7 +1,7 @@
 import { colorMap } from "../../constants/Colors.ts";
 import type { BoardState } from "../../types/BoardState.ts";
 import { cellIsPlayable, type GameState } from "../../types/GameState.ts";
-import type { CellValue } from "../../types/GameTypes.ts";
+import type { CellValue, Index } from "../../types/GameTypes.ts";
 import BigCell from "./BigCell.tsx";
 import Square from "./Square.tsx";
 
@@ -11,7 +11,7 @@ export default function Board(props: {
 	boardState: BoardState;
 	bigCellValue: CellValue;
 	active: boolean;
-	onCellClick: (cell: number) => void;
+	onCellClick: (cell: Index) => void;
 }) {
 	const cssVariables = colorMap[props.gameState.Turn];
 
@@ -47,7 +47,7 @@ export default function Board(props: {
 							props.boardIndex,
 							cellIndex,
 						)}
-						onCellClick={() => props.onCellClick(cellIndex)}
+						onCellClick={() => props.onCellClick(cellIndex as Index)}
 					/>
 				))}
 				<BigCell value={props.bigCellValue} />
