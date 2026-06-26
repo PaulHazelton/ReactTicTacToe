@@ -1,3 +1,28 @@
+# Temp Readme
+
+## Normal Debugging
+
+```bash
+deno run dev
+```
+
+## Test on Mobile, Hosted at Home
+
+To test on mobile, disable firewall. Don't forget to re-enable!
+```bash
+sudo ufw disable
+```
+
+Then do this to run and host it
+```bash
+deno task dev --host
+```
+
+---
+End of my readme
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
