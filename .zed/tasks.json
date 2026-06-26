@@ -1,0 +1,8 @@
+[
+	{
+		"label": "Deno: Run Dev with Inspect",
+		"command": "deno",
+		"args": ["run", "--inspect-brk", "-A", "dev"],
+		"use_new_terminal": false,
+	},
+]
