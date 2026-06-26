@@ -93,6 +93,24 @@
 	.control-panel {
 		flex-direction: row;
 	}
+
+	.turn-indicator,
+	.control-panel .btn {
+		width: 6rem;
+		height: 2rem;
+	}
+
+	.turn-indicator h3 {
+		font-size: 1rem;
+		padding: 0.5rem;
+	}
+
+	.turn-indicator div {
+		width: calc(2rem - 4px);
+		height: calc(2rem - 4px);
+		font-size: 1rem;
+		flex-shrink: 0;
+	}
 }
 
 .game {
