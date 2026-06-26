@@ -1,21 +1,22 @@
-import type { CellValue } from "../../types/GameTypes";
-import { colorMap } from "../../constants/Colors";
+import type { CellValue } from "../../types/GameTypes.ts";
+import { colorMap } from "../../constants/Colors.ts";
 
 export default function Square(props: {
 	value: CellValue;
-	playable: boolean,
-	lastMove: boolean,
-	setCell: () => void;
+	playable: boolean;
+	wasPreviousMove: boolean;
+	onCellClick: () => void;
 }) {
 	const cssVariables = colorMap[props.value];
 
 	return (
 		<>
 			<button
-				className={`square ${props.lastMove ? "previous" : ""}`}
+				type="button"
+				className={`square ${props.wasPreviousMove ? "previous" : ""}`}
 				style={cssVariables}
 				disabled={!props.playable}
-				onClick={props.setCell}
+				onClick={props.onCellClick}
 			>
 				<span>{props.value}</span>
 			</button>

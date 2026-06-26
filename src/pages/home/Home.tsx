@@ -1,5 +1,5 @@
-import Card from "../../components/Card";
-import { AppRoutes } from "../../constants/AppRoutes";
+import Card from "../../components/Card.tsx";
+import { AppRoutes } from "../../constants/AppRoutes.ts";
 import "./Home.css";
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
 				<div className="zone">
 					<h2>Single Player Game</h2>
 					<div className="card-box">
-						<Card header="Easy" color="lime">
+						<Card header="Easy" color="lime" route={AppRoutes.Easy}>
 							<p>Random AI</p>
 						</Card>
 						<Card header="Medium" color="yellow">

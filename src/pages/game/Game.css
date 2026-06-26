@@ -14,7 +14,7 @@
 .control-panel {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 	gap: 1rem;
 	width: 100%;
@@ -72,12 +72,15 @@
 	.game {
 		height: 100%;
 	}
+
 	.game-control-box {
 		flex-direction: row;
 		align-items: self-start;
 	}
+
 	.control-panel {
 		flex-direction: column;
+		height: 100%;
 	}
 }
 
@@ -85,6 +88,10 @@
 @media not ((width > 900px)) {
 	.game {
 		width: calc(min(100dvh - 12rem, 90dvw));
+	}
+
+	.control-panel {
+		flex-direction: row;
 	}
 }
 
@@ -145,7 +152,7 @@
 
 .square {
 	container-type: inline-size;
-	
+
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 
 	width: 100%;
@@ -177,6 +184,7 @@
 	border-color: var(--turnColor);
 	border-radius: 8px;
 }
+
 .square:not(:disabled):focus-visible {
 	outline: 2px solid #40d0f0;
 	outline-offset: 2px;
@@ -209,7 +217,7 @@
 	color: var(--cellColor);
 	background-color: var(--cellBgColor);
 	opacity: 0.6;
-	
+
 	user-select: none;
 	pointer-events: none;
 }
