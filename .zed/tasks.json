@@ -1,8 +1,8 @@
 [
 	{
-		"label": "Deno: Run Dev with Inspect",
-		"command": "deno",
-		"args": ["run", "--inspect-brk", "-A", "dev"],
-		"use_new_terminal": false,
+		"label": "Start Dev Server",
+		"command": "deno task dev",
+		"use_new_terminal": true,
+		"allow_concurrent_runs": false,
 	},
 ]
