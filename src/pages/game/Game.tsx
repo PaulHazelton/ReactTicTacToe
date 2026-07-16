@@ -16,30 +16,26 @@ export default function Game(props: { mode: GameMode }) {
 
 	const turnIndicatorCss = colorMap3[gameState.Turn];
 
+	const aiTurnDelayMs = 1000;
 	const aiTurn: boolean = props.mode == "Easy AI" && gameState.Status == "not over" && gameState.Turn == "O";
 
-	// AI SLOP WARNNIG -------
-	// 1. Add the useEffect hook for the AI's delay
+	// AI's turn delay
 	React.useEffect(() => {
 		// Only run the timer if it's the AI's turn
 		if (aiTurn) {
 			const timerId = setTimeout(() => {
-				// Assume this is your existing helper function
 				const turn: [Index, Index] | null = GameState.easyAiTurn(gameState);
 
 				if (turn == null)
 					throw new Error("AI failed to select a turn");
 
 				attempTurn(turn[0], turn[1]);
-			}, 1000); // 1000ms = 1 second delay
+			}, aiTurnDelayMs);
 
-			// 2. CRITICAL: Cleanup function
-			// This clears the timeout if the component unmounts or if the state
-			// changes before the timer finishes, preventing memory leaks and bugs.
+			// This clears the timeout if the component unmounts or if the state changes before the timer finishes.
 			return () => clearTimeout(timerId);
 		}
-	}, [aiTurn, gameState]); // Re-run effect when turn or state changes
-	// -------------
+	}, [aiTurn]);
 
 	function attempTurn(selectedBoard: Index, selectedCell: Index) {
 		if (!GameState.cellIsPlayable(gameState, selectedBoard, selectedCell))
