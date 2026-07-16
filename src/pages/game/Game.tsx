@@ -8,10 +8,11 @@ import EndScreen from "./EndScreen.tsx";
 import { ArrowLeft, Undo2 } from "lucide-react";
 import * as GameState from "../../types/GameState.ts";
 import type { GameMode, Index } from "../../types/GameTypes.ts";
+import { GameStateContext } from "../../hooks/GameStateHook.ts";
 
 export default function Game(props: { mode: GameMode }) {
 	const [history, setHistory] = React.useState<GameState.GameState[]>([]);
-	const [gameState, setGameState] = React.useState<GameState.GameState>(GameState.createGameState);
+	const [gameState, setGameState] = React.useState<GameState.GameState>(GameState.createGameState());
 
 	const turnIndicatorCss = colorMap3[gameState.Turn];
 
@@ -63,45 +64,46 @@ export default function Game(props: { mode: GameMode }) {
 
 	return (
 		<>
-			<div className="header">
-				<Link className="btn" to={AppRoutes.Home}>
-					<ArrowLeft />Back
-				</Link>
-				<h1>Ultimate Tic Tac Toe</h1>
-			</div>
-			<div className="subheader">
-				<h2>{props.mode}</h2>
-			</div>
-			<div className="game-control-box">
-				<div className="control-panel">
-					<div className="turn-indicator" style={turnIndicatorCss}>
-						<h3>Turn</h3>
-						<div>{gameState.Turn}</div>
+			<GameStateContext value={gameState}>
+				<div className="header">
+					<Link className="btn" to={AppRoutes.Home}>
+						<ArrowLeft />Back
+					</Link>
+					<h1>Ultimate Tic Tac Toe</h1>
+				</div>
+				<div className="subheader">
+					<h2>{props.mode}</h2>
+				</div>
+				<div className="game-control-box">
+					<div className="control-panel">
+						<div className="turn-indicator" style={turnIndicatorCss}>
+							<h3>Turn</h3>
+							<div>{gameState.Turn}</div>
+						</div>
+						{aiTurn && <div>Thinking...</div>}
+						<button type="button" className="btn" onClick={undo}>
+							<Undo2 />Undo
+						</button>
 					</div>
-					{aiTurn && <div>Thinking...</div>}
-					<button type="button" className="btn" onClick={undo}>
-						<Undo2 />Undo
-					</button>
+					<div
+						className={`game ${gameState.ActiveBoard == null ? "active" : ""}`}
+						style={turnIndicatorCss}
+					>
+						{gameState.SmallBoards.map((boardState, boardIndex) => (
+							<Board
+								key={boardIndex}
+								boardIndex={boardIndex}
+								boardState={boardState}
+								bigCellValue={gameState
+									.BigBoard[boardIndex]}
+								active={gameState.ActiveBoard == boardIndex}
+								onCellClick={(cellIndex) => attempTurn(boardIndex as Index, cellIndex)}
+							/>
+						))}
+						<EndScreen status={gameState.Status} />
+					</div>
 				</div>
-				<div
-					className={`game ${gameState.ActiveBoard == null ? "active" : ""}`}
-					style={turnIndicatorCss}
-				>
-					{gameState.SmallBoards.map((boardState, boardIndex) => (
-						<Board
-							key={boardIndex}
-							gameState={gameState}
-							boardIndex={boardIndex}
-							boardState={boardState}
-							bigCellValue={gameState
-								.BigBoard[boardIndex]}
-							active={gameState.ActiveBoard == boardIndex}
-							onCellClick={(cellIndex) => attempTurn(boardIndex as Index, cellIndex)}
-						/>
-					))}
-					<EndScreen status={gameState.Status} />
-				</div>
-			</div>
+			</GameStateContext>
 		</>
 	);
 }
