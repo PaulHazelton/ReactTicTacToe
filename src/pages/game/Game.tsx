@@ -17,12 +17,13 @@ export default function Game(props: { mode: GameMode }) {
 	const turnIndicatorCss = colorMap3[gameState.Turn];
 
 	const aiTurnDelayMs = 1000;
-	const aiTurn: boolean = props.mode == "Easy AI" && gameState.Status == "not over" && gameState.Turn == "O";
+	const isAiMode: boolean = props.mode == "Easy AI";
+	const isAiTurn: boolean = isAiMode && gameState.Status == "not over" && gameState.Turn == "O";
 
 	// AI's turn delay
 	React.useEffect(() => {
 		// Only run the timer if it's the AI's turn
-		if (aiTurn) {
+		if (isAiTurn) {
 			const timerId = setTimeout(() => {
 				const turn: [Index, Index] | null = GameState.easyAiTurn(gameState);
 
@@ -35,7 +36,7 @@ export default function Game(props: { mode: GameMode }) {
 			// This clears the timeout if the component unmounts or if the state changes before the timer finishes.
 			return () => clearTimeout(timerId);
 		}
-	}, [aiTurn]);
+	}, [isAiTurn]);
 
 	function attempTurn(selectedBoard: Index, selectedCell: Index) {
 		if (!GameState.cellIsPlayable(gameState, selectedBoard, selectedCell))
@@ -54,8 +55,15 @@ export default function Game(props: { mode: GameMode }) {
 		if (history.length == 0)
 			return;
 
-		setGameState(history[history.length - 1]);
-		setHistory(history.slice(0, -1));
+		// Undo twice
+		if (isAiMode && !isAiTurn) {
+			setGameState(history[history.length - 2]);
+			setHistory(history.slice(0, -2));
+		}
+		else {
+			setGameState(history[history.length - 1]);
+			setHistory(history.slice(0, -1));
+		}
 	}
 
 	return (
@@ -76,7 +84,7 @@ export default function Game(props: { mode: GameMode }) {
 							<h3>Turn</h3>
 							<div>{gameState.Turn}</div>
 						</div>
-						{aiTurn && <div>Thinking...</div>}
+						{isAiTurn && <div>Thinking...</div>}
 						<button type="button" className="btn" onClick={undo}>
 							<Undo2 />Undo
 						</button>
